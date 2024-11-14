@@ -1,0 +1,58 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: bev
+      changes:
+        - createTable:
+            tableName: code_text
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: code_text
+                  type: clob
+              - column:
+                  name: file_path
+                  type: varchar(255)
+                  constraints:
+                    unique: true
+                    nullable: false
+  - changeSet:
+      id: 2
+      author: bev
+      changes:
+        - createTable:
+            tableName: code_hub
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: version
+                  type: varchar(255)
+                  constraints:
+                    unique: false
+                    nullable: true
+              - column:
+                  name: project_name
+                  type: varchar(255)
+                  constraints:
+                    unique: false
+                    nullable: true
+              - column:
+                  name: code_text_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_code_text
+                    references: code_text(id)
+                    onDelete: CASCADE
