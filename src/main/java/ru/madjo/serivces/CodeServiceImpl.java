@@ -3,6 +3,7 @@ package ru.madjo.serivces;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.madjo.dto.CodeDto;
+import ru.madjo.exceptions.ProjectCodeNotFoundException;
 import ru.madjo.exceptions.VersionAlreadyExistsException;
 import ru.madjo.models.CodeText;
 import ru.madjo.models.ProjectCode;
@@ -51,5 +52,12 @@ public class CodeServiceImpl implements CodeService {
     public List<String> getAllProjects() {
         List<ProjectCode> projects = projectCodeRepository.findAll();
         return projects.stream().map( p -> p.getProjectName()).toList();
+    }
+
+    @Override
+    public ProjectCode findById(long id) {
+        return projectCodeRepository.findById(id)
+                .orElseThrow(() -> new ProjectCodeNotFoundException("Project with id: %d not found"
+                        .formatted(id)));
     }
 }

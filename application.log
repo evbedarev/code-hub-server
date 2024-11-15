@@ -5446,3 +5446,43 @@ Mocking methods declared on non-public parent classes is not supported.
 2024-11-13 07:22:44,010 INFO [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean [AbstractEntityManagerFactoryBean.java:650] - Closing JPA EntityManagerFactory for persistence unit 'default'
 2024-11-13 07:22:44,016 INFO [SpringApplicationShutdownHook] c.z.h.HikariDataSource [HikariDataSource.java:350] - HikariPool-1 - Shutdown initiated...
 2024-11-13 07:22:44,050 INFO [SpringApplicationShutdownHook] c.z.h.HikariDataSource [HikariDataSource.java:352] - HikariPool-1 - Shutdown completed.
+2024-11-14 23:18:39,934 INFO [main] o.s.t.c.s.AnnotationConfigContextLoaderUtils [AnnotationConfigContextLoaderUtils.java:83] - Could not detect default configuration classes for test class [ru.madjo.rest.CodeRestControllerTest]: CodeRestControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2024-11-14 23:18:40,214 INFO [main] o.s.b.t.c.SpringBootTestContextBootstrapper [SpringBootTestContextBootstrapper.java:248] - Found @SpringBootConfiguration ru.madjo.Application for test class ru.madjo.rest.CodeRestControllerTest
+2024-11-14 23:18:40,890 INFO [main] r.m.r.CodeRestControllerTest [StartupInfoLogger.java:51] - Starting CodeRestControllerTest using Java 21.0.2 with PID 5385 (started by madjo in /home/madjo/Документы/code-hub-server)
+2024-11-14 23:18:40,892 INFO [main] r.m.r.CodeRestControllerTest [SpringApplication.java:638] - No active profile set, falling back to 1 default profile: "default"
+2024-11-14 23:18:43,419 INFO [main] o.s.b.t.m.w.SpringBootMockServletContext [MockServletContext.java:435] - Initializing Spring TestDispatcherServlet ''
+2024-11-14 23:18:43,420 INFO [main] o.s.t.w.s.TestDispatcherServlet [FrameworkServlet.java:532] - Initializing Servlet ''
+2024-11-14 23:18:43,423 INFO [main] o.s.t.w.s.TestDispatcherServlet [FrameworkServlet.java:554] - Completed initialization in 2 ms
+2024-11-14 23:18:43,465 INFO [main] r.m.r.CodeRestControllerTest [StartupInfoLogger.java:57] - Started CodeRestControllerTest in 3.072 seconds (process running for 4.811)
+2024-11-14 23:33:30,028 INFO [main] o.s.t.c.s.AnnotationConfigContextLoaderUtils [AnnotationConfigContextLoaderUtils.java:83] - Could not detect default configuration classes for test class [ru.madjo.rest.CodeRestControllerTest]: CodeRestControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2024-11-14 23:33:30,259 INFO [main] o.s.b.t.c.SpringBootTestContextBootstrapper [SpringBootTestContextBootstrapper.java:248] - Found @SpringBootConfiguration ru.madjo.Application for test class ru.madjo.rest.CodeRestControllerTest
+2024-11-14 23:33:30,739 INFO [main] r.m.r.CodeRestControllerTest [StartupInfoLogger.java:51] - Starting CodeRestControllerTest using Java 21.0.2 with PID 5634 (started by madjo in /home/madjo/Документы/code-hub-server)
+2024-11-14 23:33:30,740 INFO [main] r.m.r.CodeRestControllerTest [SpringApplication.java:638] - No active profile set, falling back to 1 default profile: "default"
+2024-11-14 23:33:33,068 INFO [main] o.s.b.t.m.w.SpringBootMockServletContext [MockServletContext.java:435] - Initializing Spring TestDispatcherServlet ''
+2024-11-14 23:33:33,069 INFO [main] o.s.t.w.s.TestDispatcherServlet [FrameworkServlet.java:532] - Initializing Servlet ''
+2024-11-14 23:33:33,073 INFO [main] o.s.t.w.s.TestDispatcherServlet [FrameworkServlet.java:554] - Completed initialization in 2 ms
+2024-11-14 23:33:33,109 INFO [main] r.m.r.CodeRestControllerTest [StartupInfoLogger.java:57] - Started CodeRestControllerTest in 2.739 seconds (process running for 4.235)
+2024-11-14 23:34:12,407 INFO [main] o.s.t.c.s.AnnotationConfigContextLoaderUtils [AnnotationConfigContextLoaderUtils.java:83] - Could not detect default configuration classes for test class [ru.madjo.rest.CodeRestControllerTest]: CodeRestControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2024-11-14 23:34:12,638 INFO [main] o.s.b.t.c.SpringBootTestContextBootstrapper [SpringBootTestContextBootstrapper.java:248] - Found @SpringBootConfiguration ru.madjo.Application for test class ru.madjo.rest.CodeRestControllerTest
+2024-11-14 23:34:13,137 INFO [main] r.m.r.CodeRestControllerTest [StartupInfoLogger.java:51] - Starting CodeRestControllerTest using Java 21.0.2 with PID 5728 (started by madjo in /home/madjo/Документы/code-hub-server)
+2024-11-14 23:34:13,138 INFO [main] r.m.r.CodeRestControllerTest [SpringApplication.java:638] - No active profile set, falling back to 1 default profile: "default"
+2024-11-14 23:34:15,567 INFO [main] o.s.b.t.m.w.SpringBootMockServletContext [MockServletContext.java:435] - Initializing Spring TestDispatcherServlet ''
+2024-11-14 23:34:15,569 INFO [main] o.s.t.w.s.TestDispatcherServlet [FrameworkServlet.java:532] - Initializing Servlet ''
+2024-11-14 23:34:15,576 INFO [main] o.s.t.w.s.TestDispatcherServlet [FrameworkServlet.java:554] - Completed initialization in 4 ms
+2024-11-14 23:34:15,617 INFO [main] r.m.r.CodeRestControllerTest [StartupInfoLogger.java:57] - Started CodeRestControllerTest in 2.864 seconds (process running for 4.316)
+2024-11-14 23:34:34,965 INFO [main] o.s.t.c.s.AnnotationConfigContextLoaderUtils [AnnotationConfigContextLoaderUtils.java:83] - Could not detect default configuration classes for test class [ru.madjo.rest.CodeRestControllerTest]: CodeRestControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2024-11-14 23:34:35,245 INFO [main] o.s.b.t.c.SpringBootTestContextBootstrapper [SpringBootTestContextBootstrapper.java:248] - Found @SpringBootConfiguration ru.madjo.Application for test class ru.madjo.rest.CodeRestControllerTest
+2024-11-14 23:34:35,748 INFO [main] r.m.r.CodeRestControllerTest [StartupInfoLogger.java:51] - Starting CodeRestControllerTest using Java 21.0.2 with PID 5821 (started by madjo in /home/madjo/Документы/code-hub-server)
+2024-11-14 23:34:35,750 INFO [main] r.m.r.CodeRestControllerTest [SpringApplication.java:638] - No active profile set, falling back to 1 default profile: "default"
+2024-11-14 23:34:38,020 INFO [main] o.s.b.t.m.w.SpringBootMockServletContext [MockServletContext.java:435] - Initializing Spring TestDispatcherServlet ''
+2024-11-14 23:34:38,021 INFO [main] o.s.t.w.s.TestDispatcherServlet [FrameworkServlet.java:532] - Initializing Servlet ''
+2024-11-14 23:34:38,025 INFO [main] o.s.t.w.s.TestDispatcherServlet [FrameworkServlet.java:554] - Completed initialization in 1 ms
+2024-11-14 23:34:38,062 INFO [main] r.m.r.CodeRestControllerTest [StartupInfoLogger.java:57] - Started CodeRestControllerTest in 2.697 seconds (process running for 4.179)
+2024-11-14 23:37:24,349 INFO [main] o.s.t.c.s.AnnotationConfigContextLoaderUtils [AnnotationConfigContextLoaderUtils.java:83] - Could not detect default configuration classes for test class [ru.madjo.rest.CodeRestControllerTest]: CodeRestControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2024-11-14 23:37:24,586 INFO [main] o.s.b.t.c.SpringBootTestContextBootstrapper [SpringBootTestContextBootstrapper.java:248] - Found @SpringBootConfiguration ru.madjo.Application for test class ru.madjo.rest.CodeRestControllerTest
+2024-11-14 23:37:25,114 INFO [main] r.m.r.CodeRestControllerTest [StartupInfoLogger.java:51] - Starting CodeRestControllerTest using Java 21.0.2 with PID 5938 (started by madjo in /home/madjo/Документы/code-hub-server)
+2024-11-14 23:37:25,115 INFO [main] r.m.r.CodeRestControllerTest [SpringApplication.java:638] - No active profile set, falling back to 1 default profile: "default"
+2024-11-14 23:37:27,390 INFO [main] o.s.b.t.m.w.SpringBootMockServletContext [MockServletContext.java:435] - Initializing Spring TestDispatcherServlet ''
+2024-11-14 23:37:27,391 INFO [main] o.s.t.w.s.TestDispatcherServlet [FrameworkServlet.java:532] - Initializing Servlet ''
+2024-11-14 23:37:27,394 INFO [main] o.s.t.w.s.TestDispatcherServlet [FrameworkServlet.java:554] - Completed initialization in 2 ms
+2024-11-14 23:37:27,428 INFO [main] r.m.r.CodeRestControllerTest [StartupInfoLogger.java:57] - Started CodeRestControllerTest in 2.727 seconds (process running for 4.137)
