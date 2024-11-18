@@ -29,11 +29,11 @@ public class ProjectCode {
     @Getter
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "project_id")
-    private List<CodeText> codeText;
+    private List<CodeVersion> codeVersions;
 
     @Override
     public boolean equals(Object obj) {
-        Logger logger = LoggerFactory.getLogger(CodeText.class);
+        Logger logger = LoggerFactory.getLogger(CodeVersion.class);
         logger.debug("Compare ProjectCode");
         if (this == obj) return true;
         if (obj.getClass() != this.getClass() || obj == null) return false;
@@ -44,9 +44,11 @@ public class ProjectCode {
                 .append(projectName);
         objString.append(pCode.id)
                 .append(pCode.projectName);
-        if (codeText != null && pCode.getCodeText() != null) {
-            for (CodeText codeT : pCode.getCodeText()) {
-                if (!codeText.contains(codeT)) {
+
+        if (!compareTwoCodeTextList(codeVersions, pCode.getCodeVersions())) return false;
+        if (codeVersions != null && pCode.getCodeVersions() != null) {
+            for (CodeVersion codeT : pCode.getCodeVersions()) {
+                if (!codeVersions.contains(codeT)) {
                     return false;
                 }
             }
@@ -54,5 +56,16 @@ public class ProjectCode {
         logger.debug(thisString.toString());
         logger.debug(objString.toString());
         return thisString.compareTo(objString) == 0;
+    }
+
+    private boolean compareTwoCodeTextList(List<CodeVersion> one, List<CodeVersion> two) {
+        if (one!= null && two != null) {
+            for (CodeVersion codeT : two) {
+                if (!one.contains(codeT)) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }

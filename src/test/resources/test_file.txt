@@ -1,5 +1,5 @@
 package ru.madjo.serivces;
 import ru.madjo.dto.CodeDto;
-import ru.madjo.models.CodeText;
+import ru.madjo.models.CodeVersion;
 import ru.madjo.models.ProjectCode;
 

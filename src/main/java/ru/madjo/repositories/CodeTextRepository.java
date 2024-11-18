@@ -1,18 +1,18 @@
 package ru.madjo.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import ru.madjo.models.CodeText;
+import ru.madjo.models.CodeVersion;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface CodeTextRepository extends JpaRepository<CodeText, Long> {
+public interface CodeTextRepository extends JpaRepository<CodeVersion, Long> {
 
-    Optional<CodeText> findById(long id);
+    Optional<CodeVersion> findById(long id);
 
     @Override
-    List<CodeText> findAll();
+    List<CodeVersion> findAll();
 
-    Optional<CodeText> findByVersionAndProjectCodeId(String version, long projectCodeId);
+    Optional<CodeVersion> findByVersionAndProjectCodeId(String version, long projectCodeId);
 
 }

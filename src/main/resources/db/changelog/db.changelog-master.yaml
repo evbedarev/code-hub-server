@@ -4,6 +4,26 @@ databaseChangeLog:
       author: bev
       changes:
         - createTable:
+            tableName: code_hub
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: project_name
+                  type: varchar(255)
+                  constraints:
+                    unique: false
+                    nullable: true
+  - changeSet:
+      id: 2
+      author: bev
+      changes:
+        - createTable:
             tableName: code_text
             columns:
               - column:
@@ -20,39 +40,19 @@ databaseChangeLog:
                   name: file_path
                   type: varchar(255)
                   constraints:
-                    unique: true
+                    unique: false
                     nullable: false
-  - changeSet:
-      id: 2
-      author: bev
-      changes:
-        - createTable:
-            tableName: code_hub
-            columns:
               - column:
-                  name: id
+                  name: project_id
                   type: BIGINT
-                  autoIncrement: true
                   constraints:
-                    primaryKey: true
                     nullable: false
+                    foreignKeyName: fk_project
+                    references: code_hub(id)
+                    onDelete: NO ACTION
               - column:
                   name: version
                   type: varchar(255)
                   constraints:
                     unique: false
                     nullable: true
-              - column:
-                  name: project_name
-                  type: varchar(255)
-                  constraints:
-                    unique: false
-                    nullable: true
-              - column:
-                  name: code_text_id
-                  type: BIGINT
-                  constraints:
-                    nullable: false
-                    foreignKeyName: fk_code_text
-                    references: code_text(id)
-                    onDelete: CASCADE

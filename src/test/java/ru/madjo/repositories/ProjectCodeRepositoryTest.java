@@ -3,7 +3,7 @@ package ru.madjo.repositories;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import ru.madjo.models.CodeText;
+import ru.madjo.models.CodeVersion;
 import ru.madjo.models.ProjectCode;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -22,10 +22,10 @@ public class ProjectCodeRepositoryTest {
     public void shouldGetCorrectProjectCode() {
         Optional<ProjectCode> projectCode = projectCodeRepository.findById(1L);
         assertThat(projectCode.get().getProjectName()).isEqualTo("code_hub");
-        List<CodeText> codeText = projectCode.get().getCodeText();
-        System.out.println(codeText.get(0).getId());
-        System.out.println(codeText.get(0).getFilePath());
-        System.out.println(codeText.get(0).getCodeText());
+        List<CodeVersion> codeVersions = projectCode.get().getCodeVersions();
+        System.out.println(codeVersions.get(0).getId());
+        System.out.println(codeVersions.get(0).getFilePath());
+        System.out.println(codeVersions.get(0).getCodeText());
     }
 
     @Test
@@ -33,7 +33,7 @@ public class ProjectCodeRepositoryTest {
         ProjectCode projectCode = new ProjectCode(0,"proj_code2",
                 new ArrayList<>());
         projectCodeRepository.save(projectCode);
-        Optional<ProjectCode> optCode = projectCodeRepository.findById(2L);
+        Optional<ProjectCode> optCode = projectCodeRepository.findById(3L);
         assertThat(optCode.get().getProjectName()).isEqualTo("proj_code2");
     }
 
@@ -43,7 +43,7 @@ public class ProjectCodeRepositoryTest {
                 new ArrayList<>());
         projectCodeRepository.save(projectCode);
         List<ProjectCode> projectCodes = projectCodeRepository.findAll();
-        assertThat(projectCodes.size()).isEqualTo(2);
+        assertThat(projectCodes.size()).isEqualTo(3);
     }
 
     @Test

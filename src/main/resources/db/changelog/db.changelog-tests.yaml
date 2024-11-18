@@ -40,7 +40,7 @@ databaseChangeLog:
                   name: file_path
                   type: varchar(255)
                   constraints:
-                    unique: true
+                    unique: false
                     nullable: false
               - column:
                   name: project_id
@@ -67,6 +67,12 @@ databaseChangeLog:
               - column:
                   name: project_name
                   value: code_hub
+        - insert:
+            tableName: code_hub
+            columns:
+              - column:
+                  name: project_name
+                  value: code_hub2
   - changeSet:
       id: 4
       author: bev
@@ -87,3 +93,18 @@ databaseChangeLog:
               - column:
                   name: version
                   value: release/1
+        - insert:
+            tableName: code_text
+            columns:
+              - column:
+                  name: code_text
+                  value: CodeText2
+              - column:
+                  name: file_path
+                  value: FilePath2
+              - column:
+                  name: project_id
+                  value: 2
+              - column:
+                  name: version
+                  value: release/2

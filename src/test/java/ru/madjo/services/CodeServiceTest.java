@@ -1,14 +1,15 @@
 package ru.madjo.services;
 
-import org.checkerframework.checker.units.qual.C;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import ru.madjo.dto.CodeDto;
-import ru.madjo.exceptions.VersionAlreadyExistsException;
-import ru.madjo.models.CodeText;
+import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
+import ru.madjo.exceptions.ProjectCodeNotFoundException;
+import ru.madjo.models.CodeVersion;
 import ru.madjo.models.ProjectCode;
 import ru.madjo.repositories.CodeTextRepository;
 import ru.madjo.repositories.ProjectCodeRepository;
@@ -16,14 +17,21 @@ import ru.madjo.serivces.CodeService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Scanner;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 public class CodeServiceTest {
+
+    private static final String TEST_TEXT_FILE = "test_file.txt";
+
+    private static final String TEST_VER = "ver1";
 
     @Autowired
     private CodeService codeService;
@@ -36,49 +44,66 @@ public class CodeServiceTest {
 
 
     @Test
-    public void shouldCorrectSaveNewProjectAndCodeText() {
-        CodeDto testDto = new CodeDto("ver1","proj1","file1", "Mytext");
-        Mockito.when(projectCodeRepository.findByProjectName("proj1")).thenReturn(Optional.empty());
-        ProjectCode resultCode = new ProjectCode(0,testDto.getProjectName(),new ArrayList<>());
-        Mockito.when(projectCodeRepository.save(resultCode))
-                .thenReturn(resultCode);
-        CodeText cT = new CodeText(0,testDto.getCodeText(), testDto.getFilePath(), testDto.getVersion(), 0);
-        Mockito.when(codeTextRepository.save(cT)).thenReturn(cT);
-        CodeText codeText1 = codeService.saveProjectVersion(testDto);
-        assertThat(codeText1.getProjectCodeId()).isEqualTo(0);
-
+    public void shouldCorrectSaveCodeTextInProject() throws IOException {
+        ProjectCode projectCode = new ProjectCode(1L,"proj1",new ArrayList<>());
+        Mockito.when(projectCodeRepository.findById(1L)).thenReturn(Optional.of(projectCode));
+        Mockito.when(codeTextRepository.findByVersionAndProjectCodeId(TEST_VER,1L))
+                .thenReturn(Optional.empty());
+        MockMultipartFile mockMultipartFile = getMultipart();
+        CodeVersion codeVersionExpected = new CodeVersion(0,
+                getTextFromMultipartFile(getMultipart()),
+                "",TEST_VER,1L);
+        Mockito.when(codeTextRepository.save(codeVersionExpected)).thenReturn(codeVersionExpected);
+        CodeVersion codeVersion = codeService.saveProjectVersion(mockMultipartFile,1L,TEST_VER);
+        assertThat(codeVersion).isEqualTo(codeVersionExpected);
     }
+
     @Test
-    public void shouldThrowExceptionWhenCreateNewProject() {
-        CodeDto testDto = new CodeDto("ver1","proj1","file1", "Mytext");
-        ProjectCode resultCode = new ProjectCode(1L,testDto.getProjectName(),new ArrayList<>());
-        Mockito.when(projectCodeRepository.findByProjectName("proj1")).thenReturn(Optional.of(resultCode));
-        CodeText cT = new CodeText(0,testDto.getCodeText(), testDto.getFilePath(), testDto.getVersion(), 0);
-        Mockito.when(codeTextRepository.findByVersionAndProjectCodeId("ver1",1L))
-                .thenReturn(Optional.of(cT));
-        assertThatThrownBy(() -> codeService.saveProjectVersion(testDto)).isInstanceOf(VersionAlreadyExistsException.class);
+    public void shouldThrowExceptionWhenCreateNewProject() throws IOException {
+        Mockito.when(projectCodeRepository.findById(1L)).thenReturn(Optional.empty());
+        assertThatThrownBy(() -> codeService.saveProjectVersion(
+                getMultipart(),1L, TEST_VER
+        )).isInstanceOf(ProjectCodeNotFoundException.class);
     }
 
     @Test
     public void shouldReturnCorrectListOfProjects() {
-        ProjectCode pc1 = new ProjectCode(1L,"proj1",new ArrayList<>());
-        ProjectCode pc2 = new ProjectCode(2L,"proj2",new ArrayList<>());
-        Mockito.when(projectCodeRepository.findAll()).thenReturn(List.of(pc1,pc2));
-        List<String> projectNames = codeService.getAllProjects();
-        assertThat(projectNames).contains(pc1.getProjectName(),pc2.getProjectName());
+        List<ProjectCode> projects = getProjects();
+        Mockito.when(projectCodeRepository.findAll()).thenReturn(projects);
+        List<ProjectCode> projectNames = codeService.getAllProjects();
+        assertThat(projectNames).contains(projects.get(0),
+                projects.get(1));
     }
 
     @Test
-    public void shouldAddTextToExistingProject() {
-        CodeDto testDto = new CodeDto("ver1","proj1","file1", "Mytext");
-        ProjectCode resultCode = new ProjectCode(1,testDto.getProjectName(),new ArrayList<>());
-        Mockito.when(projectCodeRepository.findByProjectName("proj1"))
-                .thenReturn(Optional.of(resultCode));
-        Mockito.when(codeTextRepository.findByVersionAndProjectCodeId("ver1",1))
-                .thenReturn(Optional.empty());
-        CodeText expectedText = new CodeText(0,testDto.getCodeText(), testDto.getFilePath(), testDto.getVersion(), 1);
-        Mockito.when(codeTextRepository.save(expectedText)).thenReturn(expectedText);
-        CodeText resultText = codeService.saveProjectVersion(testDto);
-        assertThat(resultText).isEqualTo(expectedText);
+    public void shouldReturnAllProjects() {
+        List<ProjectCode> projectCodes = getProjects();
+        Mockito.when(projectCodeRepository.findAll()).thenReturn(projectCodes);
+        List<ProjectCode> projNames = codeService.getAllProjects();
+        assertThat(projNames).contains(projectCodes.get(0),
+                projectCodes.get(1));
+    }
+
+    private MockMultipartFile getMultipart() throws IOException {
+        ClassLoader classLoader = getClass().getClassLoader();
+        InputStream inputStream = classLoader.getResourceAsStream(TEST_TEXT_FILE);
+        return new MockMultipartFile("file", TEST_TEXT_FILE,
+                MediaType.TEXT_PLAIN_VALUE, inputStream.readAllBytes());
+    }
+
+    private String getTextFromMultipartFile(MultipartFile file) throws IOException {
+        InputStream inputStream = file.getInputStream();
+        Scanner scanner = new Scanner(inputStream).useDelimiter("\\n");;
+        StringBuilder stringBuilder = new StringBuilder();
+        while (scanner.hasNext()) {
+            String line = scanner.next();
+            stringBuilder.append(line).append("\n");
+        }
+        return stringBuilder.toString();
+    }
+
+    private List<ProjectCode> getProjects() {
+        return List.of(new ProjectCode(1L,"proj1",new ArrayList<>()),
+                new ProjectCode(2L,"proj2",new ArrayList<>()));
     }
 }
